@@ -1,14 +1,5 @@
 import { ConfigService } from '@nestjs/config';
 
-export interface AppConfig {
-  database: AppConfigDatabase;
-}
-
-export interface AppConfigDatabase {
-  driver: string;
-  url: string;
-}
-
 export const configProvider = {
   provide: 'CONFIG',
   useFactory: (configService: ConfigService): AppConfig => ({
@@ -22,3 +13,12 @@ export const configProvider = {
   }),
   inject: [ConfigService],
 };
+
+export interface AppConfig {
+  database: AppConfigDatabase;
+}
+
+export interface AppConfigDatabase {
+  driver: string;
+  url: string;
+}
