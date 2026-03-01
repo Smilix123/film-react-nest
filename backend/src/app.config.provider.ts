@@ -4,11 +4,12 @@ export const configProvider = {
   provide: 'CONFIG',
   useFactory: (configService: ConfigService): AppConfig => ({
     database: {
-      driver: configService.get('DATABASE_DRIVER', 'mongodb'),
-      url: configService.get(
-        'DATABASE_URL',
-        'mongodb://localhost:27017/practicum',
-      ),
+      driver: configService.get('DATABASE_DRIVER', 'postgres'),
+      host: configService.get('DATABASE_HOST', 'localhost'),
+      port: parseInt(configService.get('DATABASE_PORT', '5432'), 10),
+      username: configService.get('DATABASE_USERNAME', 'practicum'),
+      password: configService.get('DATABASE_PASSWORD', '123456'),
+      database: configService.get('DATABASE_NAME', 'practicum'),
     },
   }),
   inject: [ConfigService],
@@ -19,6 +20,10 @@ export interface AppConfig {
 }
 
 export interface AppConfigDatabase {
-  driver: string;
-  url: string;
+  driver: 'postgres' | 'mongodb';
+  host: string;
+  port: number;
+  username: string;
+  password: string;
+  database: string;
 }
